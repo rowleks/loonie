@@ -1,26 +1,266 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — semantic layer (HSL channel values)                */
+/* Light is default; .dark overrides. This file is the single         */
+/* source of truth for the Loonie visual identity.                    */
+/* ------------------------------------------------------------------ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Neutrals — cool with a faint teal cast */
+  --background: 180 6% 98%;
+  --foreground: 200 12% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 200 12% 11%;
+  --muted: 180 6% 95%;
+  --muted-foreground: 200 5% 45%;
+  --border: 180 8% 91%;
+  --input: 180 8% 91%;
+
+  /* Brand — fresh teal */
+  --primary: 172 55% 35%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Secondary accent — coral, data/highlights only */
+  --accent: 14 100% 64%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Semantic */
+  --success: 158 62% 38%;
+  --success-foreground: 0 0% 100%;
+  --warning: 36 90% 48%;
+  --warning-foreground: 0 0% 100%;
+  --destructive: 0 72% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Focus */
+  --ring: 172 55% 35%;
+
+  /* Charts — teal, coral, slate-blue, amber, plum */
+  --chart-1: 172 55% 40%;
+  --chart-2: 14 100% 60%;
+  --chart-3: 215 25% 55%;
+  --chart-4: 36 90% 55%;
+  --chart-5: 280 40% 55%;
+
+  /* Sidebar (shared across admin / cleaner / customer dashboards) */
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 200 12% 11%;
+  --sidebar-accent: 172 25% 96%;
+  --sidebar-accent-foreground: 172 55% 25%;
+  --sidebar-border: 180 8% 91%;
+
+  /* Radius — cards 16px (xl), buttons/inputs 12px (lg) */
+  --radius: 1rem;
 }
+
+.dark {
+  --background: 180 8% 6%;
+  --foreground: 180 8% 95%;
+  --card: 180 6% 9%;
+  --card-foreground: 180 8% 95%;
+  --muted: 180 6% 13%;
+  --muted-foreground: 180 5% 65%;
+  --border: 180 6% 17%;
+  --input: 180 6% 17%;
+
+  --primary: 172 60% 48%;
+  --primary-foreground: 175 40% 8%;
+
+  --accent: 14 95% 66%;
+  --accent-foreground: 0 0% 100%;
+
+  --success: 158 60% 50%;
+  --success-foreground: 175 40% 8%;
+  --warning: 36 90% 58%;
+  --warning-foreground: 36 40% 8%;
+  --destructive: 0 72% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --ring: 172 60% 48%;
+
+  --chart-1: 172 60% 48%;
+  --chart-2: 14 95% 66%;
+  --chart-3: 215 30% 65%;
+  --chart-4: 36 90% 62%;
+  --chart-5: 280 45% 65%;
+
+  --sidebar: 180 7% 8%;
+  --sidebar-foreground: 180 8% 95%;
+  --sidebar-accent: 172 15% 14%;
+  --sidebar-accent-foreground: 172 50% 65%;
+  --sidebar-border: 180 6% 17%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tailwind theme mapping — exposes tokens as utilities                */
+/* ------------------------------------------------------------------ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --color-sidebar: hsl(var(--sidebar));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-sora), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* Radius — soft, airy geometry */
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Depth — near-flat; hierarchy comes from canvas/card contrast */
+  --shadow-sm: 0 1px 2px hsl(200 20% 20% / 0.05);
+  --shadow-md:
+    0 1px 3px hsl(200 20% 20% / 0.05), 0 4px 12px hsl(200 20% 20% / 0.04);
+  --shadow-lift:
+    0 2px 4px hsl(200 20% 20% / 0.04), 0 12px 32px hsl(200 20% 20% / 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans text-sm;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/* Component classes — one place to restyle the whole app              */
+/* `btn` and `chip` are registered as utilities (@utility) so they can */
+/* be used with @apply in Tailwind v4 — @apply only accepts utilities.  */
+/* ------------------------------------------------------------------ */
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-150 ease-out select-none disabled:pointer-events-none disabled:opacity-50;
+}
+
+@utility chip {
+  @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg;
+}
+
+@layer components {
+  /* Surfaces */
+  .card {
+    @apply rounded-xl border bg-card text-card-foreground shadow-sm;
+  }
+
+  .card-hover {
+    @apply transition-shadow duration-200 ease-out hover:shadow-lift;
+  }
+
+  /* Buttons */
+
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply btn border bg-card text-foreground hover:bg-muted;
+  }
+
+  .btn-ghost {
+    @apply btn text-foreground hover:bg-muted;
+  }
+
+  .btn-destructive {
+    @apply btn bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+
+  /* Forms */
+  .input {
+    @apply h-10 w-full rounded-lg border bg-card px-3 text-sm text-foreground placeholder:text-muted-foreground;
+  }
+
+  .label {
+    @apply text-xs font-medium text-muted-foreground;
+  }
+
+  /* Signature: tinted chip — icon/status/metric in a semantic tint */
+  .chip-primary {
+    @apply chip bg-primary/10 text-primary;
+  }
+
+  .chip-accent {
+    @apply chip bg-accent/10 text-accent;
+  }
+
+  .chip-success {
+    @apply chip bg-success/10 text-success;
+  }
+
+  .chip-warning {
+    @apply chip bg-warning/10 text-warning;
+  }
+
+  .chip-destructive {
+    @apply chip bg-destructive/10 text-destructive;
+  }
+
+  /* Big numbers — Sora, tabular alignment */
+  .stat-number {
+    @apply font-display text-3xl font-bold tracking-tight tabular-nums;
+  }
+
+  /* Page heading register for dashboards */
+  .page-title {
+    @apply font-display text-2xl font-bold tracking-tight md:text-3xl;
+  }
 }
