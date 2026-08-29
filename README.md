@@ -33,14 +33,14 @@ Environment variable names: `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `
 - **Multi-tenancy**: every core table carries `org_id` — don't add tables that assume one organization
 - **Security**: every mutating Server Action / route handler re-checks `session.user.role` and ownership server-side; client-side hiding is UX, not security
 - **Bookings are created only from the Stripe webhook** (`checkout.session.completed`) — never trust the client-side success redirect alone
-- **Cancellation/reschedule 24hr cutoff** lives in `src/lib/booking-rules.ts` — import it in both UI and server actions, don't duplicate inline
+- **Cancellation/reschedule 24hr cutoff** lives in `lib/booking-rules.ts` — import it in both UI and server actions, don't duplicate inline
 - **No card data, ever**, in the database or logs — Stripe handles all of it
 - Prefer Server Components + Server Actions over client-side fetching; `"use client"` only where there's real interactivity
 - Schema changes go through Drizzle migrations, never hand-edited SQL against the live DB
 
 ## Structure
 
-Route groups `(marketing)`, `(auth)`, `(customer)/dashboard`, `(admin)/admin`, `(cleaner)/jobs` share one app; each role group has its own layout with a server-side role check. The Drizzle schema (`src/db/schema.ts`) is the single source of truth for data shape. Shared logic (availability, booking rules) lives in `src/lib/`. Route handlers and webhooks sit under `src/app/api/`; everything else prefers Server Actions.
+Route groups `(marketing)`, `(auth)`, `(customer)/dashboard`, `(admin)/admin`, `(cleaner)/jobs` share one app; each role group has its own layout with a server-side role check. The Drizzle schema (`db/schema.ts`) is the single source of truth for data shape. Shared logic (availability, booking rules) lives in `lib/`. Route handlers and webhooks sit under `app/api/`; everything else prefers Server Actions.
 
 ## Further reading
 

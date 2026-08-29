@@ -25,20 +25,19 @@ If a task seems to need a different tool than what's listed here, say so and ask
 ## Folder structure (established — follow it)
 
 ```
-src/
-  app/
-    (marketing)/       public site
-    (auth)/             sign in / sign up
-    (customer)/dashboard/
-    (admin)/admin/
-    (cleaner)/jobs/
-    api/                 route handlers, webhooks only — prefer Server Actions elsewhere
-  db/
-    schema.ts            Drizzle schema — single source of truth for data shape
-    index.ts               db client
-  auth.ts                 NextAuth v5 config
-  lib/                     shared utilities (availability, booking rules, etc.)
-  components/             shared UI
+app/
+  (marketing)/       public site
+  (auth)/             sign in / sign up
+  (customer)/dashboard/
+  (admin)/admin/
+  (cleaner)/jobs/
+  api/                 route handlers, webhooks only — prefer Server Actions elsewhere
+  components/          shared UI
+db/
+  schema.ts            Drizzle schema — single source of truth for data shape
+  index.ts             db client
+auth.ts                 NextAuth v5 config
+lib/                     shared utilities (availability, booking rules, etc.)
 ```
 
 Route groups `(customer)`, `(admin)`, `(cleaner)` each have their own layout with a server-side role check. Every new page in one of these groups must sit under the matching layout — never create a standalone route that bypasses the role check.
