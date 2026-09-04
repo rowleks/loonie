@@ -60,6 +60,7 @@ export async function signUpAction(
     orgId,
     name: parsed.data.name,
     email: parsed.data.email,
+    phone: parsed.data.phone ?? null,
     passwordHash,
     role: 'customer',
   })

@@ -1,10 +1,11 @@
+import type { ReactNode } from 'react'
 import { AppHeader } from '@/app/components/app-header'
 import { requireRole } from '@/lib/auth'
 
 export default async function CustomerDashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   const user = await requireRole('customer')
 

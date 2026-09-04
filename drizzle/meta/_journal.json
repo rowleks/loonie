@@ -8,6 +8,13 @@
       "when": 1787975952693,
       "tag": "0000_fluffy_gwen_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788546144463,
+      "tag": "0001_right_mariko_yashida",
+      "breakpoints": true
     }
   ]
 }

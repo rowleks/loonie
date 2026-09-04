@@ -43,6 +43,20 @@ export function SignUpForm() {
       </div>
 
       <div className="flex flex-col gap-1.5">
+        <label htmlFor="phone" className="label">
+          Phone <span className="normal-case">(optional)</span>
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          className="input"
+          placeholder="(604) 555-0123"
+        />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
         <label htmlFor="password" className="label">
           Password
         </label>

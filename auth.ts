@@ -48,9 +48,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     jwt({ token, user }): JWT {
-      token.id = user.id!
-      token.role = user.role!
-      token.orgId = user.orgId!
+      // `user` is only present on sign-in; on ordinary unauthenticated
+      // requests we must leave the token untouched, not throw.
+      if (user) {
+        token.id = user.id!
+        token.role = user.role!
+        token.orgId = user.orgId!
+      }
       return token
     },
     session({ session, token }): Session {
